@@ -1,0 +1,66 @@
+<div class="row">
+    <div class="col-md-6">
+        <h1>List Of Tasks</h1>
+    </div>
+    <div class="col-md-6">
+        <a (click)="showNewTask()" type="button" class="btn btn-success pull-right" href="#">
+            <i class="fa fa-plus"></i> New Task
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 offset-md-3" *ngIf="showForm">
+        <div class="form-group">
+            <label for="label"><h5>Label</h5></label>
+            <input id="label" [(ngModel)]="addTask.label" type="text" class="form-control" placeholder="Type Task..." />
+        </div>
+        <div class="form-check">
+            <label class="form-check-label">
+                <input [(ngModel)]="addTask.completed" type="checkbox" class="form-check-input"/>
+                <h5>Completed</h5>
+            </label>
+        </div>
+        <!--c est un  pipe filter {{addTask | json}} -->
+        <a *ngIf="showBtnAdd" (click)="addNewTask()" type="button" class="btn btn-success btn-block" href="#">
+            <i class="fa fa-send"></i> Add Task
+        </a>
+        <a *ngIf="showBtnUpdate" type="button" class="btn btn-info btn-block" href="#">
+            <i class="fa fa-refresh"></i> Update Task
+        </a>
+    </div>
+</div> 
+
+<br>
+<div class="row">
+    <div class="col-md-6 offset-md-3 btn-block">
+        <input class="col-md-12" type="text" placeholder="Search..."/>
+    </div>
+</div>
+
+<div class="row col-md-6 offset-md-3"  *ngFor="let task of tasks"> 
+        <br>
+        <div class="col-md-2">
+            <a (click)="doGetUpdate()" type="button" class="btn btn-warning btn-sm update-btn">
+                <i class="fa fa-pencil-square"></i>
+            </a>
+        </div>
+        <div class="col-md-6"  style="background-color: whitesmoke;"><strong>{{task.label}}</strong></div>
+        <div class="col-md-1 offset-md-1">
+            <a type="button" class="btn btn-sm completed" [ngClass]="{
+                'btn-info'  :  task.completed,
+                'btn-danger': !task.completed
+                }" href="#">
+                <i class="fa" [ngClass]="{
+                    'fa-thumbs-up':  task.completed,
+                    'fa-thumbs-down'  : !task.completed
+                }">
+                </i>
+            </a>
+        </div>
+        <div class="col-md-2 pull-right">
+            <a (click)="doDeleteTask(task.id)" type="button" class="btn btn-sm pull-right delete-task">
+                <i class="fa fa-trash"></i>
+            </a>
+        </div>
+</div>
